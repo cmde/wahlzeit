@@ -18,6 +18,7 @@ buildscript {
 gradle.taskGraph.whenReady {
     graph ->
     if (System.env.'JAVA_HOME' == null) {
+        println "JAVA_HOME = " + System.env.'JAVA_HOME'
         throw new GradleException("JAVA_HOME not set. Please set it, otherwise this task can not be executed.")
     }
     else {
