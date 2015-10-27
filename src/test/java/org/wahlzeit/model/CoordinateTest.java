@@ -21,32 +21,25 @@ public class CoordinateTest {
 		c3 = new Coordinate(2, 6);
 		c4 = new Coordinate(3, 7);
 
-		precisionDelta = 0.00001;
+		precisionDelta = 0.0000000001;
 
 	}
-
+	
 	@Test
-	public void testLongitudinalDistance() {
-		assertEquals(0.0, c1.getDistance(c1).getLongitude(), precisionDelta);
-		assertEquals(1.0, c1.getDistance(c2).getLongitude(), precisionDelta);
-		assertEquals(2.0, c1.getDistance(c3).getLongitude(), precisionDelta);
-		assertEquals(3.0, c1.getDistance(c4).getLongitude(), precisionDelta);
-	}
-
-	@Test
-	public void testLatitudinalDistance() {
-		assertEquals(0.0, c1.getDistance(c1).getLatitude(), precisionDelta);
-		assertEquals(1.0, c1.getDistance(c2).getLatitude(), precisionDelta);
-		assertEquals(2.0, c1.getDistance(c3).getLatitude(), precisionDelta);
-		assertEquals(3.0, c1.getDistance(c4).getLatitude(), precisionDelta);
+	public void testDistances() {
+		assertEquals(0.0, c1.getDistance(c1), precisionDelta);
+		assertEquals(1.4142135624, c1.getDistance(c2), precisionDelta);
+		assertEquals(2.8284271247, c1.getDistance(c3), precisionDelta);
+		assertEquals(4.2426406871, c1.getDistance(c4), precisionDelta);
+		
 	}
 
 	@Test
 	public void distanceCommutativity() {
-		Coordinate distance1 = c1.getDistance(c2);
-		Coordinate distance2 = c2.getDistance(c1);
-		assertEquals(distance1.getLatitude(), distance2.getLatitude(), precisionDelta);
-		assertEquals(distance1.getLongitude(), distance2.getLongitude(), precisionDelta);
+		double distance1 = c1.getDistance(c2);
+		double distance2 = c2.getDistance(c1);
+		assertEquals(distance1, distance2, precisionDelta);
+		assertEquals(distance1, distance2, precisionDelta);
 	}
 
 	@Test

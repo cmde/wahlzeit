@@ -22,12 +22,12 @@ public class Coordinate {
 	 * Calculates the distance for cartesian coordinates
 	 *
 	 * @param other coordinate to calculate the distance to
-	 * @return the distance between this and the other coordinate as new
-	 * coordinate object
+	 * @return the distance between this and the other coordinate
 	 */
-	public Coordinate getDistance(Coordinate other) {
-		return new Coordinate(getLatitudinalDistance(other),
-			getLongitudinalDistance(other));
+	public double getDistance(Coordinate other) {
+		double latitudePowed = Math.pow(getLatitudinalDistance(other),2);
+		double longitudePowed = Math.pow(getLongitudinalDistance(other),2);
+		return Math.sqrt(latitudePowed+longitudePowed);
 	}
 
 	/**
