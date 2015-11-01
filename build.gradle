@@ -53,9 +53,9 @@ test {
 }
 
 appengine {
-    httpPort = 8080
+    httpPort = 8081
     downloadSdk = true
-    jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000']
+    jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8001']
 
     appcfg {
         oauth2 = true

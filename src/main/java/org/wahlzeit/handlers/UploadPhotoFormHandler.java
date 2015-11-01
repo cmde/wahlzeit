@@ -35,6 +35,7 @@ import org.wahlzeit.webparts.WebPart;
 
 import java.util.Map;
 import java.util.logging.Logger;
+import org.wahlzeit.model.TextPhotoManager;
 
 /**
  * A handler class for a specific web form.
@@ -73,7 +74,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		}
 
 		try {
-			PhotoManager pm = PhotoManager.getInstance();
+			PhotoManager pm = TextPhotoManager.getInstance();
 			String fileName = us.getAsString(args, "fileName");
 			User user = (User) us.getClient();
 			Image uploadedImage = user.getUploadedImage();
