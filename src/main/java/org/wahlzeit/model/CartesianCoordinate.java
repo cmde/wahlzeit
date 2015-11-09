@@ -1,8 +1,6 @@
 package org.wahlzeit.model;
 
-import org.wahlzeit.services.DataObject;
-
-public class CartesianCoordinate extends DataObject implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 
 	private double x;
 	private double y;
@@ -27,10 +25,11 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
 	}
 
 	/**
-	 * Calculates the distance for cartesian coordinates
+	 * Calculates the distance to other CartesianCoordinates or
+	 * SphericCoordinates
 	 *
 	 * @param other coordinate to calculate the distance to
-	 * @return the distance between this and the other coordinate
+	 * @return the distance between this and the other coordinate in kilometers
 	 */
 	@Override
 	public double getDistance(Coordinate other) {
@@ -53,6 +52,12 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
 
 	}
 
+	/**
+	 * Checks if a CarthesianCoordinate is at the same place as this one.
+	 *
+	 * @param other the other CathesianCoordinate
+	 * @return true if other is CarthesianCoordinate and at the same place
+	 */
 	@Override
 	public boolean isEqual(Coordinate other) {
 		if (other instanceof CartesianCoordinate) {
@@ -67,15 +72,12 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
 	private CartesianCoordinate convertSphericalToCartesian(SphericCoordinate spheric) {
 		double latitude = deg2Rad(spheric.getLatitude());
 		double longitutde = deg2Rad(spheric.getLongitude());
-		
-		double cx = spheric.getRadius() * Math.cos(latitude)*Math.cos(longitutde);
-		double cy = spheric.getRadius() * Math.cos(latitude)*Math.sin(longitutde);
+
+		double cx = spheric.getRadius() * Math.cos(latitude) * Math.cos(longitutde);
+		double cy = spheric.getRadius() * Math.cos(latitude) * Math.sin(longitutde);
 		double cz = spheric.getRadius() * Math.sin(latitude);
-		
+
 		return new CartesianCoordinate(cx, cy, cz);
 	}
-	
-	private double deg2Rad(double degree) {
-		return degree * Math.PI / 180;
-	}
+
 }

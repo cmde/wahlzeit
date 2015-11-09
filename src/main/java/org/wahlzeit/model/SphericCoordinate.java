@@ -1,8 +1,6 @@
 package org.wahlzeit.model;
 
-import org.wahlzeit.services.DataObject;
-
-public class SphericCoordinate extends DataObject implements Coordinate {
+public class SphericCoordinate extends AbstractCoordinate {
 
 	private double latitude;
 	private double longitude;
@@ -32,6 +30,13 @@ public class SphericCoordinate extends DataObject implements Coordinate {
 		return radius;
 	}
 
+	/**
+	 * Calculates the distance to other SphericCoordinates or
+	 * CartesianCoordinates
+	 *
+	 * @param other coordinate to calculate the distance to
+	 * @return the distance between this and the other coordinate in kilometers
+	 */
 	@Override
 	public double getDistance(Coordinate other) {
 		if (other == null) {
@@ -60,6 +65,12 @@ public class SphericCoordinate extends DataObject implements Coordinate {
 			* Math.cos(otherLongitutdeRad - longitudeRad)) * radius;
 	}
 
+	/**
+	 * Checks if a SphericCoordinate is at the same place as this one.
+	 *
+	 * @param other the other SphericCoordinate
+	 * @return true if other is SphericCoordinate and at the same place
+	 */
 	@Override
 	public boolean isEqual(Coordinate other) {
 		if (other instanceof SphericCoordinate) {
@@ -71,21 +82,13 @@ public class SphericCoordinate extends DataObject implements Coordinate {
 		return false;
 	}
 
-	private double deg2Rad(double degree) {
-		return degree * Math.PI / 180;
-	}
-	
-	private double rad2Deg(double rad) {
-		return rad * 180 / Math.PI;
-	}
-
 	private SphericCoordinate convertCartesianToSpheric(CartesianCoordinate cartCoord) {
 		double newRadius = Math.sqrt(
 			Math.pow(cartCoord.getX(), 2)
 			+ Math.pow(cartCoord.getY(), 2)
 			+ Math.pow(cartCoord.getZ(), 2));
 
-		double newLat = rad2Deg(Math.asin(cartCoord.getZ()/newRadius));
+		double newLat = rad2Deg(Math.asin(cartCoord.getZ() / newRadius));
 		double newLon = rad2Deg(Math.atan2(cartCoord.getY(), cartCoord.getX()));
 
 		return new SphericCoordinate(newLat, newLon, newRadius);
