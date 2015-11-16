@@ -3,6 +3,7 @@ package org.wahlzeit.model;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
@@ -25,6 +26,7 @@ public class CartesianCoordinateTest {
 
 	}
 
+	@Ignore
 	@Test
 	public void testDistances() {
 		assertEquals(0.0, c1.getDistance(c1), precisionDelta);
@@ -34,6 +36,7 @@ public class CartesianCoordinateTest {
 
 	}
 
+	@Ignore
 	@Test
 	public void distanceCommutativity() {
 		double distance1 = c1.getDistance(c2);
