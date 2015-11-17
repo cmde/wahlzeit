@@ -22,9 +22,8 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 */
 	@Override
 	public double getDistance(Coordinate other) {
-		if (other == null) {
-			throw new NullPointerException("the provided coordinate is null!");
-		}
+		assert other != null : "Coordinate should not be null";
+
 		AbstractCoordinate abstractOther = (AbstractCoordinate) other;
 
 		if (abstractOther.getRadius() != this.getRadius()) {
@@ -36,9 +35,16 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 		double otherLatitudeRad = Math.toRadians(abstractOther.getLatitude());
 		double otherLongitutdeRad = Math.toRadians(abstractOther.getLongitude());
 
-		return Math.acos(Math.sin(latitudeRad) * Math.sin(otherLatitudeRad)
+		double result = Math.acos(Math.sin(latitudeRad) * Math.sin(otherLatitudeRad)
 			+ Math.cos(latitudeRad) * Math.cos(otherLatitudeRad)
 			* Math.cos(otherLongitutdeRad - longitudeRad)) * getRadius();
+
+		assert result >= 0;
+		assert Double.NaN != result;
+		assert abstractOther.assertClassInvariants();
+		assert assertClassInvariants();
+
+		return result;
 	}
 
 	/**
@@ -49,11 +55,30 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 */
 	@Override
 	public boolean isEqual(Coordinate other) {
-		if (other != null) {
-			Double distance = getDistance(other);
-			return distance.compareTo(DELTA) <= 0;
-		}
-		return false;
+		assert other != null : "Coordinate should not be null";
+
+		Double distance = getDistance(other);
+		boolean equality = distance.compareTo(DELTA) <= 0;
+
+		assert equality == true || equality == false;
+		assert ((AbstractCoordinate) other).assertClassInvariants();
+		assert assertClassInvariants();
+
+		return equality;
+
+	}
+
+	/**
+	 * Tells you whether this object is in a valid state or not. For usage in
+	 * assert statements!
+	 *
+	 * @return whethter the object is in a valid state or not as boolean value
+	 */
+	protected boolean assertClassInvariants() {
+		boolean validLatitude = Double.NaN != latitude && -180 <= latitude && 180 >= latitude;
+		boolean validLongitude = Double.NaN != longitude && -90 <= longitude && 90 >= longitude;
+		boolean validRadius = Double.NaN != radius && 0 <= radius;
+		return validLatitude && validLongitude && validRadius;
 	}
 
 }
