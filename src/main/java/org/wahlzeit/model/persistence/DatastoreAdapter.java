@@ -33,12 +33,20 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.logging.Logger;
+import org.wahlzeit.annotations.Pattern;
 
 /**
  * Adapter for the Google Datastore. Use default constructor to create an instance.
  * 
  * @review
  */
+@Pattern(
+	name = "Adapter",//Objektbasierter Adapter mit delegation an ObjectifyService
+	participants = {
+		"Adapter", //DatastoreAdapter
+		"Adaptee", //ObjectifyService
+		"Target" //ImageStorage
+	})
 public class DatastoreAdapter extends ImageStorage {
 
 	private static final Logger log = Logger.getLogger(DatastoreAdapter.class.getName());

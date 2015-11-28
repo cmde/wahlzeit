@@ -6,6 +6,7 @@ import org.wahlzeit.model.UserSession;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import org.wahlzeit.annotations.Pattern;
 
 /**
  * Builder class for log messages, that ensures that log messages are all formatted equally.
@@ -17,6 +18,16 @@ import java.io.StringWriter;
  * 
  * @review
  */
+@Pattern(
+	//Hinweis: Dieser Builder kann mit sogenanntem "Method chaining" benutzt werden.
+	name = "Builder",
+	participants = {
+		"Builder", //LogBuilder
+		"ConcreteBuilder", //LogBuilder -> sehr häufig sind Builder und ConcreteBuilder die gleiche Klasse
+		"Director", //Zuordnung schwierig, da die Methoden des Builders static sind.
+		"Product" //String in diesem Fall ist das Produkt aus dem Builder ein String (erhaelt man mit toString() ).
+	}
+)
 public class LogBuilder {
 
 	protected static final String LEVEL = "level";

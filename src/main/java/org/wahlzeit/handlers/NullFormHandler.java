@@ -20,6 +20,7 @@
 
 package org.wahlzeit.handlers;
 
+import org.wahlzeit.annotations.Pattern;
 import org.wahlzeit.model.AccessRights;
 import org.wahlzeit.model.UserSession;
 import org.wahlzeit.webparts.WebPart;
@@ -28,6 +29,14 @@ import org.wahlzeit.webparts.WebPart;
 /**
  * A handler class for a null web form.
  */
+@Pattern(
+	name = "Null Object",
+	participants = {
+		"NullObject", //this class
+		"AbstractClass", //AbstractWebFormHandler
+		"RealClass", //
+		"Client"
+	})
 public class NullFormHandler extends AbstractWebFormHandler {
 
 	/**
