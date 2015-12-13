@@ -1,56 +1,49 @@
-package org.wahlzeit.model;
+package org.wahlzeit.model.coordinate;
 
 public class CartesianCoordinate extends AbstractCoordinate {
 
-	private double x;
-	private double y;
-	private double z;
+	private final double x;
+	private final double y;
+	private final double z;
 
-	public CartesianCoordinate(double x, double y, double z) {
+	protected CartesianCoordinate(double x, double y, double z) {
+		super(calculateLatitude(x, y, z),
+			calculateLongitude(x, y),
+			calculateRadius(x, y, z));
 		assert Double.NaN != x;
 		assert Double.NaN != y;
 		assert Double.NaN != z;
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		updateSuperClassFields();
 		assert assertClassInvariants();
 	}
 
-	/**
-	 * updates the fields radius, longitutde and latitude of the super class.
-	 * Always use this method when you change X, Y, Z to make sure the state
-	 * remains consistent!
-	 */
-	private void updateSuperClassFields() {
-		//no input parameters -> no assertions
-		this.radius = Math.sqrt(
-			Math.pow(getX(), 2)
-			+ Math.pow(getY(), 2)
-			+ Math.pow(getZ(), 2));
-		this.longitude = Math.toRadians(Math.atan2(getY(), getX()));
-		this.latitude = Math.toRadians(Math.asin(getZ() / getRadius()));
-
-		assert assertClassInvariants();
+	private static double calculateRadius(double x, double y, double z) {
+		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+	}
+	
+	private static double calculateLongitude(double x, double y) {
+		return Math.toRadians(Math.atan2(y, x));
+	}
+	
+	private static double calculateLatitude(double x, double y, double z) {
+		return Math.toRadians(Math.asin(z / calculateRadius(x, y, z)));
 	}
 
-	public void setX(double x) {
+	public CartesianCoordinate setX(double x) {
 		assert Double.NaN != x;
-		this.x = x;
-		updateSuperClassFields();
-		assert assertClassInvariants();
+		return CoordinateFactory.getCarthesianCoordinate(x, getY(), getZ());
 	}
-	public void setY(double y) {
+	
+	public CartesianCoordinate setY(double y) {
 		assert Double.NaN != y;
-		this.y = y;
-		updateSuperClassFields();
-		assert assertClassInvariants();
+		return CoordinateFactory.getCarthesianCoordinate(getX(), y, getZ());
 	}
-	public void setZ(double z) {
+	
+	public CartesianCoordinate setZ(double z) {
 		assert Double.NaN != z;
-		this.z = z;
-		updateSuperClassFields();
-		assert assertClassInvariants();
+		return CoordinateFactory.getCarthesianCoordinate(getX(), getY(), z);
 	}
 
 	public double getX() {

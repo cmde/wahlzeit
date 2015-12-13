@@ -1,4 +1,4 @@
-package org.wahlzeit.model;
+package org.wahlzeit.model.coordinate;
 
 import org.wahlzeit.services.DataObject;
 
@@ -6,9 +6,25 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 
 	private final double DELTA = 0.00001;
 
-	protected double latitude;
-	protected double longitude;
-	protected double radius;
+	protected final double latitude;
+	protected final double longitude;
+	protected final double radius;
+
+	protected AbstractCoordinate(double latitude, double longitude, double radius) {
+		assert -180 <= latitude : "Latitude " + latitude + " too small.";
+		assert 180 >= latitude : "Latitude " + latitude + " too large.";
+		assert -90 <= longitude : "Latitude " + longitude + " too small.";
+		assert 90 >= longitude : "Latitude " + longitude + " too large.";
+		assert 0 <= radius : "Invalid radius " + radius;
+		if (latitude < -180 || latitude > 180 || longitude < -90 || longitude > 90 || radius < 0) {
+			throw new IllegalArgumentException("latitude needs to be between [-180,180], longitude between [-90, 90], radius > 0");
+		}
+
+		assert assertClassInvariants();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.radius = radius;
+	}
 
 	public abstract double getLatitude();
 	public abstract double getLongitude();
@@ -55,17 +71,7 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 	 */
 	@Override
 	public boolean isEqual(Coordinate other) {
-		assert other != null : "Coordinate should not be null";
-
-		Double distance = getDistance(other);
-		boolean equality = distance.compareTo(DELTA) <= 0;
-
-		assert equality == true || equality == false;
-		assert ((AbstractCoordinate) other).assertClassInvariants();
-		assert assertClassInvariants();
-
-		return equality;
-
+		return equals(other);
 	}
 
 	/**
@@ -79,6 +85,21 @@ public abstract class AbstractCoordinate extends DataObject implements Coordinat
 		boolean validLongitude = Double.NaN != longitude && -90 <= longitude && 90 >= longitude;
 		boolean validRadius = Double.NaN != radius && 0 <= radius;
 		return validLatitude && validLongitude && validRadius;
+	}
+
+	@Override
+	public String toString() {
+		return getLatitude()+";"+getLongitude()+";"+getRadius();
+	}
+
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		return (o != null && o instanceof Coordinate) ? this == o : false;
 	}
 
 }
