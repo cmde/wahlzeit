@@ -1,11 +1,14 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.model.coordinate.Coordinate;
+import org.wahlzeit.model.coordinate.SphericCoordinate;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.wahlzeit.model.coordinate.CoordinateFactory;
 
 public class SphericCoordinateTest {
 
@@ -19,9 +22,9 @@ public class SphericCoordinateTest {
 
 	@Before
 	public void setUp() {
-		c1 = new SphericCoordinate(49.4360936, 11.1011233, earthRadius); //Nuremberg
-		c2 = new SphericCoordinate(49.5891771, 10.9844836, earthRadius); //Erlangen
-		c3 = new SphericCoordinate(42.0, 42.0, 17); //somwhere below Georgia
+		c1 = CoordinateFactory.getSphericCoordinate(49.4360936, 11.1011233, earthRadius); //Nuremberg
+		c2 = CoordinateFactory.getSphericCoordinate(49.5891771, 10.9844836, earthRadius); //Erlangen
+		c3 = CoordinateFactory.getSphericCoordinate(42.0, 42.0, 17); //somwhere below Georgia
 
 		precisionDelta = 0.0000000001;
 

@@ -1,11 +1,14 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.model.coordinate.Coordinate;
+import org.wahlzeit.model.coordinate.CartesianCoordinate;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
+import org.wahlzeit.model.coordinate.CoordinateFactory;
 
 public class CartesianCoordinateTest {
 
@@ -17,10 +20,10 @@ public class CartesianCoordinateTest {
 
 	@Before
 	public void setUp() {
-		c1 = new CartesianCoordinate(0, 4, 0);
-		c2 = new CartesianCoordinate(1, 5, 0);
-		c3 = new CartesianCoordinate(2, 6, 0);
-		c4 = new CartesianCoordinate(3, 7, 0);
+		c1 = CoordinateFactory.getCarthesianCoordinate(0, 4, 0);
+		c2 = CoordinateFactory.getCarthesianCoordinate(1, 5, 0);
+		c3 = CoordinateFactory.getCarthesianCoordinate(2, 6, 0);
+		c4 = CoordinateFactory.getCarthesianCoordinate(3, 7, 0);
 
 		precisionDelta = 0.0000000001;
 
