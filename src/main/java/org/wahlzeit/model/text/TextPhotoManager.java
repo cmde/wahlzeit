@@ -1,4 +1,6 @@
-package org.wahlzeit.model;
+package org.wahlzeit.model.text;
+
+import org.wahlzeit.model.PhotoManager;
 
 public class TextPhotoManager extends PhotoManager {
 

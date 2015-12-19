@@ -33,8 +33,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.logging.Logger;
-import org.wahlzeit.model.TextPhotoFactory;
-import org.wahlzeit.model.TextPhotoManager;
+import org.wahlzeit.model.text.TextPhotoFactory;
+import org.wahlzeit.model.text.TextPhotoManager;
 
 /**
  * A single-threaded Main class with database connection. Can be used by tools that don't want to start a server.

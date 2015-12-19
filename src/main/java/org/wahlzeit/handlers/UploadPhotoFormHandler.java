@@ -35,7 +35,7 @@ import org.wahlzeit.webparts.WebPart;
 
 import java.util.Map;
 import java.util.logging.Logger;
-import org.wahlzeit.model.TextPhotoManager;
+import org.wahlzeit.model.text.TextPhotoManager;
 
 /**
  * A handler class for a specific web form.

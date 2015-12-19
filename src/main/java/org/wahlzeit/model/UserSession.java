@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
+import org.wahlzeit.model.text.TextPhotoFactory;
 
 /**
  * Wrapper class for {@link HttpSession} to provide a readable interface for Wahlzeit.

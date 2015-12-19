@@ -1,6 +1,8 @@
-package org.wahlzeit.model;
+package org.wahlzeit.model.text;
 
 import java.util.logging.Logger;
+import org.wahlzeit.model.PhotoFactory;
+import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.services.LogBuilder;
 
 public class TextPhotoFactory extends PhotoFactory {
@@ -10,6 +12,7 @@ public class TextPhotoFactory extends PhotoFactory {
 	 * Hidden singleton instance; needs to be initialized from the outside.
 	 */
 	private static TextPhotoFactory instance = null;
+	
 	/**
 	 * Public singleton access method.
 	 */
